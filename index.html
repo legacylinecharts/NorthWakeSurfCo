@@ -105,12 +105,79 @@
     .service-card ul li::before { content: '—'; color: var(--teal); flex-shrink: 0; }
     .price-tag { display: inline-block; background: rgba(26,122,138,.15); border: 1px solid var(--teal-dim); padding: .5rem 1rem; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--teal-lt); letter-spacing: .05em; }
 
-    /* GALLERY — 4 equal squares, no cropping */
-    #gallery { background: var(--black); padding: 0; }
-    .gallery-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
-    .g-img { overflow: hidden; position: relative; aspect-ratio: 1/1; }
-    .g-img img { width: 100%; height: 100%; object-fit: contain; background: #0a1418; display: block; transition: transform .5s ease, filter .4s ease; filter: saturate(.85); }
-    .g-img:hover img { transform: scale(1.03); filter: saturate(1.15); }
+    /* GALLERY — editorial mosaic */
+    #gallery { background: #070f12; padding: 4rem 1.5rem; }
+    #gallery .container { max-width: 1080px; margin: 0 auto; }
+    .gallery-header { margin-bottom: 2rem; }
+    .mosaic {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: 320px 280px;
+      gap: 6px;
+    }
+    .m-img {
+      position: relative; overflow: hidden;
+      border-radius: 6px;
+      border: 1px solid rgba(42,164,186,.15);
+      background: #0a1418;
+      cursor: pointer;
+    }
+    /* teal corner accent */
+    .m-img::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 32px; height: 32px;
+      border-top: 2px solid var(--teal-lt);
+      border-left: 2px solid var(--teal-lt);
+      border-radius: 6px 0 0 0;
+      z-index: 2; opacity: 0;
+      transition: opacity .3s;
+    }
+    .m-img::after {
+      content: '';
+      position: absolute; bottom: 0; right: 0;
+      width: 32px; height: 32px;
+      border-bottom: 2px solid var(--teal-lt);
+      border-right: 2px solid var(--teal-lt);
+      border-radius: 0 0 6px 0;
+      z-index: 2; opacity: 0;
+      transition: opacity .3s;
+    }
+    .m-img:hover::before, .m-img:hover::after { opacity: 1; }
+    .m-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .6s ease, filter .4s ease;
+      filter: saturate(.88) brightness(.95);
+    }
+    .m-img:hover img { transform: scale(1.05); filter: saturate(1.15) brightness(1.02); }
+    /* subtle teal overlay on hover */
+    .m-img .overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(26,122,138,.18) 0%, transparent 60%);
+      opacity: 0; transition: opacity .4s;
+      z-index: 1;
+    }
+    .m-img:hover .overlay { opacity: 1; }
+    /* caption on hover */
+    .m-img .caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.5rem 1rem .85rem;
+      background: linear-gradient(to top, rgba(5,15,20,.85) 0%, transparent 100%);
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: rgba(255,255,255,.75);
+      transform: translateY(6px); opacity: 0;
+      transition: opacity .35s, transform .35s;
+      z-index: 3;
+    }
+    .m-img:hover .caption { opacity: 1; transform: translateY(0); }
+
+    /* grid placement */
+    .m-img.m-main  { grid-column: 1; grid-row: 1 / 3; } /* tall left — guests on boat */
+    .m-img.m-tr    { grid-column: 2; grid-row: 1; }     /* top mid — kid surfing */
+    .m-img.m-tl    { grid-column: 3; grid-row: 1; }     /* top right — backflip */
+    .m-img.m-bl    { grid-column: 2; grid-row: 2; }     /* bottom mid — sunset */
+    .m-img.m-br    { grid-column: 3; grid-row: 2; }     /* bottom right — rider + boat */
 
     /* ABOUT */
     #about { background: #070f12; }
@@ -172,7 +239,10 @@
       .nav-links { display: none; }
       .hero-content { padding: 4rem 1.5rem 3rem; }
       .hero-logo-badge { display: none; }
-      .gallery-strip { grid-template-columns: repeat(2, 1fr); }
+      .mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .m-img.m-main { grid-column: 1 / 3; grid-row: auto; aspect-ratio: 16/9; }
+      .m-img.m-tr, .m-img.m-tl, .m-img.m-bl, .m-img.m-br { grid-column: auto; grid-row: auto; aspect-ratio: 1/1; }
+      .m-img .caption { opacity: 1; transform: translateY(0); }
       .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .about-photo { aspect-ratio: 4/3; }
       .area-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -250,19 +320,50 @@
 <hr class="divider" />
 
 <!-- GALLERY STRIP — 5 action/vibe photos, each used once -->
+<!-- GALLERY -->
 <div id="gallery">
-  <div class="gallery-strip">
-    <div class="g-img">
-      <img src="IMG_1541.png" alt="Young rider surfing the wake" loading="lazy" />
+  <div class="container">
+    <div class="gallery-header">
+      <p class="section-label">Life on the Water</p>
+      <h2 class="section-title">Every Session, Unforgettable</h2>
     </div>
-    <div class="g-img">
-      <img src="IMG_1573.png" alt="Rider surfing behind the Malibu" loading="lazy" />
-    </div>
-    <div class="g-img">
-      <img src="IMG_1415.png" alt="Minnesota lake sunset from the boat" loading="lazy" />
-    </div>
-    <div class="g-img">
-      <img src="IMG_1233.png" alt="Captain's view from the helm" loading="lazy" />
+    <div class="mosaic">
+
+      <!-- Main tall — guests on boat watching rider (IMG_1334_2) -->
+      <div class="m-img m-main">
+        <img src="IMG_1334_2.png" alt="Guests relaxing on the boat while rider surfs" loading="lazy" />
+        <div class="overlay"></div>
+        <div class="caption">Your crew, your session</div>
+      </div>
+
+      <!-- Top mid — kid surfing (IMG_1541) -->
+      <div class="m-img m-tr">
+        <img src="IMG_1541.png" alt="Young rider surfing the wake" loading="lazy" />
+        <div class="overlay"></div>
+        <div class="caption">All ages, all levels</div>
+      </div>
+
+      <!-- Top right — backflip off boat (IMG_1491) -->
+      <div class="m-img m-tl">
+        <img src="IMG_1491.png" alt="Backflip off the Malibu into the lake" loading="lazy" />
+        <div class="overlay"></div>
+        <div class="caption">Go big or go home</div>
+      </div>
+
+      <!-- Bottom mid — sunset on the lake (IMG_1415) -->
+      <div class="m-img m-bl">
+        <img src="IMG_1415.png" alt="Minnesota lake sunset from the boat" loading="lazy" />
+        <div class="overlay"></div>
+        <div class="caption">Minnesota sunsets, included</div>
+      </div>
+
+      <!-- Bottom right — rider surfing beside boat (IMG_1352) -->
+      <div class="m-img m-br">
+        <img src="IMG_1352.jpeg" alt="Rider wakesurfing beside the Malibu" loading="lazy" />
+        <div class="overlay"></div>
+        <div class="caption">Drop the rope, ride the wave</div>
+      </div>
+
     </div>
   </div>
 </div>
