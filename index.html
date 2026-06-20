@@ -6,18 +6,16 @@
   <title>NorthWakeSurfCo — Minnesota Wakesurf Lessons & Charters</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ── Tokens ────────────────────────────────────── */
     :root {
       --teal:    #1a7a8a;
       --teal-lt: #2aa4ba;
       --teal-dim:#0e5566;
       --black:   #0d0d0d;
-      --ink:     #1a1a1a;
-      --offwhite:#f5f8f9;
       --white:   #ffffff;
       --rule:    rgba(26,122,138,.25);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--black);
@@ -27,13 +25,13 @@
       line-height: 1.6;
     }
 
-    /* ── NAV ───────────────────────────────────────── */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1rem 2rem;
-      background: rgba(13,13,13,.88);
-      backdrop-filter: blur(10px);
+      background: rgba(13,13,13,.9);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--rule);
     }
     .nav-logo {
@@ -58,120 +56,138 @@
     }
     .nav-cta:hover { background: var(--teal-lt); }
 
-    /* ── HERO ──────────────────────────────────────── */
+    /* ── HERO ── */
     .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center;
-      padding: 6rem 1.5rem 4rem;
-      position: relative;
-      overflow: hidden;
-      background: radial-gradient(ellipse 80% 60% at 50% 60%, #0e3a44 0%, var(--black) 70%);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
     }
-    /* water shimmer lines */
-    .hero::before {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent, transparent 12px,
-        rgba(26,122,138,.08) 12px, rgba(26,122,138,.08) 13px
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('IMG_1503.png');
+      background-size: cover; background-position: center 30%;
+      transform: scale(1.04);
+      transition: transform 8s ease-out;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,13,13,.35) 0%,
+        rgba(13,13,13,.1) 40%,
+        rgba(13,13,13,.75) 75%,
+        rgba(13,13,13,.98) 100%
       );
-      mask-image: linear-gradient(to top, rgba(0,0,0,.5) 0%, transparent 100%);
     }
-    .hero-logo {
-      width: min(260px, 55vw);
-      margin-bottom: 2rem;
-      filter: drop-shadow(0 0 40px rgba(42,164,186,.35));
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 4rem 3rem 5rem;
+      max-width: 750px;
     }
     .hero-eyebrow {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: .8rem; font-weight: 700; letter-spacing: .2em;
+      font-size: .8rem; font-weight: 700; letter-spacing: .22em;
       color: var(--teal-lt); text-transform: uppercase;
       margin-bottom: .75rem;
     }
     .hero h1 {
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-size: clamp(2.8rem, 8vw, 5.5rem);
-      line-height: .95; text-transform: uppercase;
-      letter-spacing: -.01em;
+      font-weight: 900; font-size: clamp(3rem, 8vw, 6rem);
+      line-height: .92; text-transform: uppercase;
       margin-bottom: 1.25rem;
     }
-    .hero h1 em {
-      font-style: normal; color: var(--teal-lt);
-      -webkit-text-stroke: 0px;
-    }
+    .hero h1 em { font-style: normal; color: var(--teal-lt); }
     .hero-sub {
-      max-width: 500px; font-size: 1.1rem; color: rgba(255,255,255,.7);
-      margin-bottom: 2.5rem; line-height: 1.65;
+      font-size: 1.1rem; color: rgba(255,255,255,.75);
+      max-width: 480px; margin-bottom: 2.5rem; line-height: 1.65;
     }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn-primary {
       background: var(--teal); color: var(--white);
       padding: .85rem 2rem; border-radius: 5px;
       font-weight: 700; font-size: .95rem; letter-spacing: .06em;
       text-decoration: none; text-transform: uppercase;
-      transition: background .2s, transform .15s;
-      display: inline-block;
+      transition: background .2s, transform .15s; display: inline-block;
     }
     .btn-primary:hover { background: var(--teal-lt); transform: translateY(-1px); }
     .btn-outline {
-      border: 2px solid rgba(255,255,255,.35); color: var(--white);
+      border: 2px solid rgba(255,255,255,.4); color: var(--white);
       padding: .85rem 2rem; border-radius: 5px;
       font-weight: 700; font-size: .95rem; letter-spacing: .06em;
       text-decoration: none; text-transform: uppercase;
-      transition: border-color .2s, transform .15s;
-      display: inline-block;
+      transition: border-color .2s, transform .15s; display: inline-block;
     }
     .btn-outline:hover { border-color: var(--teal-lt); transform: translateY(-1px); }
-    .hero-scroll {
-      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: .4rem;
-      color: rgba(255,255,255,.3); font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
-    }
-    .hero-scroll svg { animation: bounce 1.8s ease-in-out infinite; }
-    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
 
-    /* ── SECTION SHARED ────────────────────────────── */
+    /* logo badge in hero corner */
+    .hero-logo-badge {
+      position: absolute; top: 5.5rem; right: 2.5rem; z-index: 3;
+      width: clamp(100px, 12vw, 160px);
+      filter: drop-shadow(0 0 30px rgba(42,164,186,.4));
+    }
+
+    /* ── SHARED ── */
     section { padding: 5rem 1.5rem; }
     .container { max-width: 1080px; margin: 0 auto; }
     .section-label {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: .75rem; font-weight: 700; letter-spacing: .2em;
-      color: var(--teal-lt); text-transform: uppercase;
-      margin-bottom: .75rem;
+      color: var(--teal-lt); text-transform: uppercase; margin-bottom: .6rem;
     }
     .section-title {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 900; font-size: clamp(2rem, 5vw, 3rem);
-      text-transform: uppercase; line-height: 1;
-      margin-bottom: 1rem;
+      text-transform: uppercase; line-height: 1; margin-bottom: 1rem;
     }
-    .section-body { color: rgba(255,255,255,.7); max-width: 580px; line-height: 1.7; }
-    .divider { border: none; border-top: 1px solid var(--rule); margin: 0; }
+    .section-body { color: rgba(255,255,255,.7); line-height: 1.7; }
+    hr.divider { border: none; border-top: 1px solid var(--rule); }
 
-    /* ── SERVICES ──────────────────────────────────── */
+    /* ── FEATURE SPLIT (boat + owner) ── */
+    #feature { background: #080f12; }
+    .feature-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+      margin-bottom: 2px;
+    }
+    .feature-grid-bottom {
+      display: grid; grid-template-columns: 2fr 1fr; gap: 2px;
+    }
+    .feat-img {
+      overflow: hidden; position: relative;
+      background: #0a1418;
+    }
+    .feat-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform .5s ease;
+    }
+    .feat-img:hover img { transform: scale(1.04); }
+    .feat-img.tall { aspect-ratio: 3/4; }
+    .feat-img.wide { aspect-ratio: 16/9; }
+    .feat-img.square { aspect-ratio: 1/1; }
+    .feat-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%);
+      font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: rgba(255,255,255,.7);
+    }
+
+    /* ── SERVICES ── */
     #services { background: #0a1418; }
     .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5px;
-      margin-top: 3.5rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5px; margin-top: 3rem;
       border: 1.5px solid var(--rule);
     }
     .service-card {
-      background: #0d1e24;
-      padding: 2.5rem;
-      position: relative;
-      overflow: hidden;
+      background: #0d1e24; padding: 2.5rem; position: relative; overflow: hidden;
       transition: background .25s;
     }
     .service-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
       background: linear-gradient(90deg, var(--teal), var(--teal-lt));
-      transform: scaleX(0); transform-origin: left;
-      transition: transform .3s;
+      transform: scaleX(0); transform-origin: left; transition: transform .3s;
     }
     .service-card:hover::before { transform: scaleX(1); }
     .service-card:hover { background: #112028; }
@@ -184,8 +200,7 @@
     .service-card p { color: rgba(255,255,255,.65); font-size: .95rem; line-height: 1.65; margin-bottom: 1.25rem; }
     .service-card ul { list-style: none; margin-bottom: 1.5rem; }
     .service-card ul li {
-      color: rgba(255,255,255,.6); font-size: .9rem;
-      padding: .3rem 0;
+      color: rgba(255,255,255,.6); font-size: .9rem; padding: .3rem 0;
       display: flex; align-items: flex-start; gap: .5rem;
     }
     .service-card ul li::before { content: '—'; color: var(--teal); flex-shrink: 0; }
@@ -194,77 +209,76 @@
       background: rgba(26,122,138,.15); border: 1px solid var(--teal-dim);
       padding: .5rem 1rem; border-radius: 4px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700; font-size: 1.1rem; color: var(--teal-lt);
-      letter-spacing: .05em;
+      font-weight: 700; font-size: 1.1rem; color: var(--teal-lt); letter-spacing: .05em;
     }
 
-    /* ── ABOUT ─────────────────────────────────────── */
-    #about {
-      background: var(--black);
+    /* ── GALLERY ── */
+    #gallery { background: var(--black); padding: 0; }
+    .gallery-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
     }
+    .gallery-strip .g-img {
+      overflow: hidden; aspect-ratio: 3/4; background: #0a1418;
+    }
+    .gallery-strip .g-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .5s ease, filter .4s ease;
+      filter: saturate(.85);
+    }
+    .gallery-strip .g-img:hover img { transform: scale(1.06); filter: saturate(1.1); }
+
+    /* ── ABOUT ── */
+    #about { background: #070f12; }
     .about-inner {
       display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
     }
-    .about-text .section-body { max-width: 100%; margin-top: 1rem; }
-    .about-text .section-body + .section-body { margin-top: .75rem; }
-    .about-stat-row {
-      display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap;
+    .about-photo {
+      border-radius: 6px; overflow: hidden; position: relative;
+      aspect-ratio: 4/5;
     }
+    .about-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .about-photo::after {
+      content: ''; position: absolute; inset: 0;
+      border: 1.5px solid var(--rule); border-radius: 6px; pointer-events: none;
+    }
+    .about-text .section-body { max-width: 100%; margin-top: .75rem; }
+    .about-stat-row { display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap; }
     .about-stat { text-align: center; }
     .about-stat .num {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2.5rem; font-weight: 900; color: var(--teal-lt);
-      line-height: 1;
+      font-size: 2.5rem; font-weight: 900; color: var(--teal-lt); line-height: 1;
     }
-    .about-stat .label { font-size: .8rem; color: rgba(255,255,255,.5); letter-spacing: .08em; text-transform: uppercase; }
-    .about-visual {
-      position: relative; border-radius: 8px; overflow: hidden;
-      background: radial-gradient(circle at 40% 50%, #0e3a44 0%, #050d10 100%);
-      aspect-ratio: 4/3;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .about-visual-logo {
-      width: 70%; opacity: .85;
-      filter: drop-shadow(0 0 60px rgba(42,164,186,.5));
-    }
-    .about-visual::after {
-      content: '';
-      position: absolute; inset: 0;
-      border: 1.5px solid var(--rule);
-      border-radius: 8px; pointer-events: none;
-    }
+    .about-stat .lbl { font-size: .8rem; color: rgba(255,255,255,.5); letter-spacing: .08em; text-transform: uppercase; }
 
-    /* ── AREA ──────────────────────────────────────── */
-    #area { background: #070f12; }
-    .area-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    /* ── AREA ── */
+    #area { background: var(--black); }
+    .area-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .lake-list { margin-top: 2rem; display: flex; flex-direction: column; gap: .6rem; }
+    .lake-item {
+      display: flex; align-items: center; gap: .75rem;
+      color: rgba(255,255,255,.7); font-size: .95rem;
     }
+    .lake-item::before { content: '✓'; color: var(--teal-lt); font-size: 1rem; flex-shrink: 0; }
     .area-map {
-      background: #0a1e25;
-      border: 1.5px solid var(--rule); border-radius: 6px;
-      padding: 2rem; text-align: center;
+      background: #0a1e25; border: 1.5px solid var(--rule);
+      border-radius: 6px; overflow: hidden;
     }
-    .map-embed {
-      width: 100%; border-radius: 4px; overflow: hidden;
-      aspect-ratio: 4/3;
-    }
-    .map-embed iframe {
-      width: 100%; height: 100%; border: none; border-radius: 4px;
-      filter: saturate(.7) brightness(.85);
-    }
-    .area-note {
-      margin-top: 1rem; font-size: .8rem; color: rgba(255,255,255,.4);
-      font-style: italic;
-    }
+    .area-map iframe { width: 100%; height: 320px; border: none; filter: saturate(.7) brightness(.85); display: block; }
+    .area-note { padding: .75rem 1rem; font-size: .8rem; color: rgba(255,255,255,.4); font-style: italic; }
 
-    /* ── CONTACT / BOOKING ─────────────────────────── */
+    /* ── CONTACT ── */
     #contact { background: #0a1418; }
-    .contact-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
-    }
-    .contact-info { }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
     .contact-info .section-body { margin-top: 1rem; margin-bottom: 2rem; }
-    .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .price-row { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .price-item { }
+    .price-item .pi-label { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .2rem; }
+    .price-item .pi-val { color: rgba(255,255,255,.85); font-size: .95rem; }
+    .social-links { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
     .social-link {
       display: flex; align-items: center; gap: .5rem;
       background: rgba(26,122,138,.1); border: 1px solid var(--teal-dim);
@@ -279,8 +293,7 @@
     }
     .booking-box h3 {
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-size: 1.6rem; text-transform: uppercase;
-      margin-bottom: 1.25rem;
+      font-weight: 900; font-size: 1.6rem; text-transform: uppercase; margin-bottom: 1.25rem;
     }
     .form-group { margin-bottom: 1.1rem; }
     .form-group label {
@@ -290,11 +303,10 @@
     .form-group input,
     .form-group select,
     .form-group textarea {
-      width: 100%;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 4px; padding: .65rem .9rem;
-      color: var(--white); font-family: 'Barlow', sans-serif; font-size: .95rem;
+      width: 100%; background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.15); border-radius: 4px;
+      padding: .65rem .9rem; color: var(--white);
+      font-family: 'Barlow', sans-serif; font-size: .95rem;
       outline: none; transition: border-color .2s;
     }
     .form-group input:focus,
@@ -308,12 +320,11 @@
       border: none; padding: .9rem; border-radius: 5px;
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 1.1rem; font-weight: 900; letter-spacing: .08em;
-      text-transform: uppercase; cursor: pointer;
-      transition: background .2s;
+      text-transform: uppercase; cursor: pointer; transition: background .2s;
     }
     .btn-submit:hover { background: var(--teal-lt); }
 
-    /* ── FOOTER ────────────────────────────────────── */
+    /* ── FOOTER ── */
     footer {
       background: var(--black); border-top: 1px solid var(--rule);
       padding: 2.5rem 1.5rem; text-align: center;
@@ -322,27 +333,25 @@
       max-width: 1080px; margin: 0 auto;
       display: flex; flex-direction: column; align-items: center; gap: 1rem;
     }
-    .footer-logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-size: 1.2rem; letter-spacing: .05em;
-    }
+    .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.2rem; letter-spacing: .05em; }
     .footer-logo span { color: var(--teal-lt); }
     .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
-    .footer-links a {
-      color: rgba(255,255,255,.4); text-decoration: none; font-size: .8rem;
-      letter-spacing: .06em; text-transform: uppercase;
-      transition: color .2s;
-    }
+    .footer-links a { color: rgba(255,255,255,.4); text-decoration: none; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
     .footer-links a:hover { color: var(--teal-lt); }
     .footer-copy { color: rgba(255,255,255,.25); font-size: .8rem; }
 
-    /* ── RESPONSIVE ────────────────────────────────── */
-    @media (max-width: 720px) {
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
       nav { padding: .8rem 1rem; }
       .nav-links { display: none; }
+      .hero-content { padding: 4rem 1.5rem 3rem; }
+      .hero-logo-badge { display: none; }
+      .feature-grid, .feature-grid-bottom { grid-template-columns: 1fr; }
+      .gallery-strip { grid-template-columns: repeat(3, 1fr); }
+      .gallery-strip .g-img:nth-child(n+4) { display: none; }
       .about-inner, .area-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-photo { aspect-ratio: 16/9; }
       .form-row { grid-template-columns: 1fr; }
-      .about-visual { display: none; }
     }
   </style>
 </head>
@@ -352,6 +361,7 @@
 <nav>
   <a class="nav-logo" href="#"><span>North</span>WakeSurf<span>Co</span></a>
   <ul class="nav-links">
+    <li><a href="#feature">The Boat</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#area">Service Area</a></li>
@@ -360,23 +370,57 @@
   <a class="nav-cta" href="#contact">Book Now</a>
 </nav>
 
-<!-- HERO -->
+<!-- HERO — action selfie on the water -->
 <section class="hero" id="home">
-  <img class="hero-logo" src="IMG_1622.PNG" alt="NorthWakeSurfCo Logo" />
-  <p class="hero-eyebrow">Minnesota Metro Area</p>
-  <h1>Life Starts<br>on the <em>Water</em></h1>
-  <p class="hero-sub">
-    Professional wakesurf lessons, private charters, and mobile captain services throughout the Twin Cities. All skill levels welcome.
-  </p>
-  <div class="hero-actions">
-    <a class="btn-primary" href="#contact">Book a Session</a>
-    <a class="btn-outline" href="#services">View Services</a>
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <img class="hero-logo-badge" src="IMG_1622.PNG" alt="NorthWakeSurfCo" />
+  <div class="hero-content">
+    <p class="hero-eyebrow">Minnesota Metro Area · Wakesurf Lessons &amp; Charters</p>
+    <h1>Life Starts<br>on the <em>Water</em></h1>
+    <p class="hero-sub">Professional wakesurf lessons, private charters, and mobile captain services throughout the Twin Cities. All skill levels welcome.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#contact">Book a Session</a>
+      <a class="btn-outline" href="#services">View Services</a>
+    </div>
   </div>
-  <div class="hero-scroll">
-    <svg width="14" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 14 18">
-      <path d="M7 1v12M2 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    Scroll
+</section>
+
+<hr class="divider" />
+
+<!-- FEATURE — boat + owner highlight -->
+<section id="feature" style="padding:0; background:#080f12;">
+  <div style="padding:3rem 1.5rem 1.5rem 1.5rem; max-width:1080px; margin:0 auto;">
+    <p class="section-label">The Boat &amp; Crew</p>
+    <h2 class="section-title">Built for the Wave</h2>
+  </div>
+  <div style="max-width:1080px; margin:0 auto 3rem; padding:0 1.5rem;">
+    <div class="feature-grid">
+      <!-- Malibu boat — hero shot -->
+      <div class="feat-img tall">
+        <img src="IMG_1497.png" alt="Malibu wakesurf boat on calm water at sunset" loading="lazy" />
+        <div class="feat-caption">2024 Malibu Wakesetter — Your Ride</div>
+      </div>
+      <!-- Owner selfie on the wake -->
+      <div class="feat-img tall">
+        <img src="IMG_1503.png" alt="Owner riding the wake behind the boat" loading="lazy" />
+        <div class="feat-caption">Your Coach, On the Water</div>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1080px; margin:0 auto 4rem; padding:0 1.5rem;">
+    <div class="feature-grid-bottom">
+      <!-- Boat interior / stern view with rider -->
+      <div class="feat-img wide">
+        <img src="IMG_1573.png" alt="View from the boat watching a rider surf the wake" loading="lazy" />
+        <div class="feat-caption">Watching Your Progress from the Boat</div>
+      </div>
+      <!-- Sunset on the lake -->
+      <div class="feat-img square">
+        <img src="IMG_1415.png" alt="Sunset on a Minnesota lake from the boat" loading="lazy" />
+        <div class="feat-caption">Minnesota Sunsets, Included</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -387,25 +431,21 @@
   <div class="container">
     <p class="section-label">What We Offer</p>
     <h2 class="section-title">Our Services</h2>
-    <p class="section-body">Whether you're stepping on a board for the first time or chasing your next progression milestone — we have a session for you.</p>
+    <p class="section-body">Whether you're stepping on a board for the first time or chasing your next milestone — we have a session for you.</p>
 
     <div class="services-grid">
-
-      <!-- Card 1 -->
       <div class="service-card">
         <div class="service-icon">🚤</div>
         <h3>Private Charters &amp; Wakesurf Lessons</h3>
-        <p>Everything included — boat, fuel, gear, and expert coaching. We handle it all so you can focus on having fun.</p>
+        <p>Everything included — boat, fuel, gear, and expert coaching. We handle it all so you focus on the ride.</p>
         <ul>
           <li>Professional coaching for all skill levels</li>
-          <li>Learn to get up, drop the rope, and progress</li>
+          <li>Learn to get up, drop the rope, and progress your riding</li>
           <li>Great for beginners, families, and experienced riders</li>
           <li>Boat, fuel, and equipment included</li>
         </ul>
         <div class="price-tag">$180 / hr &nbsp;·&nbsp; 2-hr minimum ($350)</div>
       </div>
-
-      <!-- Card 2 -->
       <div class="service-card">
         <div class="service-icon">📍</div>
         <h3>Mobile Captain &amp; Mobile Lessons</h3>
@@ -418,10 +458,20 @@
         </ul>
         <div class="price-tag">$125 / hr &nbsp;·&nbsp; 2-hr minimum</div>
       </div>
-
     </div>
   </div>
 </section>
+
+<!-- GALLERY STRIP -->
+<div id="gallery">
+  <div class="gallery-strip">
+    <div class="g-img"><img src="IMG_1541.JPG" alt="Kid wakesurfing on the wave" loading="lazy" /></div>
+    <div class="g-img"><img src="IMG_1573.png" alt="Rider surfing the wake behind the Malibu" loading="lazy" /></div>
+    <div class="g-img"><img src="IMG_1415.png" alt="Minnesota lake sunset from the boat" loading="lazy" /></div>
+    <div class="g-img"><img src="IMG_1233.png" alt="Captain's view from the helm" loading="lazy" /></div>
+    <div class="g-img"><img src="IMG_1334_2.png" alt="Guests relaxing on the boat while rider surfs" loading="lazy" /></div>
+  </div>
+</div>
 
 <hr class="divider" />
 
@@ -429,28 +479,29 @@
 <section id="about">
   <div class="container">
     <div class="about-inner">
+      <!-- photo: guests on boat watching rider — good "social proof" image -->
+      <div class="about-photo">
+        <img src="IMG_1334_2.png" alt="Guests on the boat enjoying a session" loading="lazy" />
+      </div>
       <div class="about-text">
         <p class="section-label">Our Story</p>
         <h2 class="section-title">Built on the Water</h2>
         <p class="section-body">NorthWakeSurfCo grew out of a lifelong love for boating and watersports. We grew up on the water and saw how much it brings people together — families, friends, and first-timers all finding something special out there.</p>
-        <p class="section-body" style="margin-top:.75rem">Our goal is simple: create a fun, safe, and memorable experience for everyone on board. Whether you're learning to get up for the first time or dialing in an advanced trick, we're here for every moment of it.</p>
+        <p class="section-body" style="margin-top:.75rem;">Our goal is simple: create a fun, safe, and memorable experience for everyone on board. Whether you're getting up for the first time or dialing in an advanced trick, we're here for every moment of it.</p>
         <div class="about-stat-row">
           <div class="about-stat">
             <div class="num">All</div>
-            <div class="label">Skill Levels</div>
+            <div class="lbl">Skill Levels</div>
           </div>
           <div class="about-stat">
             <div class="num">MN</div>
-            <div class="label">Metro Area</div>
+            <div class="lbl">Metro Area</div>
           </div>
           <div class="about-stat">
             <div class="num">100%</div>
-            <div class="label">On-Water Instruction</div>
+            <div class="lbl">On-Water</div>
           </div>
         </div>
-      </div>
-      <div class="about-visual">
-        <img class="about-visual-logo" src="IMG_1622.PNG" alt="NorthWakeSurfCo" />
       </div>
     </div>
   </div>
@@ -466,33 +517,21 @@
         <p class="section-label">Where We Ride</p>
         <h2 class="section-title">Minnesota Metro &amp; Beyond</h2>
         <p class="section-body">We're mobile and travel to most lakes throughout the Twin Cities area. Don't see your lake listed? Reach out — we'll do our best to make it work.</p>
-        <div style="margin-top:2rem; display:flex; flex-direction:column; gap:.75rem;">
-          <div style="display:flex;align-items:center;gap:.75rem; color:rgba(255,255,255,.7); font-size:.95rem;">
-            <span style="color:var(--teal-lt); font-size:1.1rem;">✓</span> Lake Minnetonka
-          </div>
-          <div style="display:flex;align-items:center;gap:.75rem; color:rgba(255,255,255,.7); font-size:.95rem;">
-            <span style="color:var(--teal-lt); font-size:1.1rem;">✓</span> White Bear Lake
-          </div>
-          <div style="display:flex;align-items:center;gap:.75rem; color:rgba(255,255,255,.7); font-size:.95rem;">
-            <span style="color:var(--teal-lt); font-size:1.1rem;">✓</span> Prior Lake
-          </div>
-          <div style="display:flex;align-items:center;gap:.75rem; color:rgba(255,255,255,.7); font-size:.95rem;">
-            <span style="color:var(--teal-lt); font-size:1.1rem;">✓</span> Lake Waconia &amp; surrounding lakes
-          </div>
-          <div style="display:flex;align-items:center;gap:.75rem; color:rgba(255,255,255,.7); font-size:.95rem;">
-            <span style="color:var(--teal-lt); font-size:1.1rem;">✓</span> + many more — just ask!
-          </div>
+        <div class="lake-list">
+          <div class="lake-item">Lake Minnetonka</div>
+          <div class="lake-item">White Bear Lake</div>
+          <div class="lake-item">Prior Lake</div>
+          <div class="lake-item">Lake Waconia &amp; surrounding lakes</div>
+          <div class="lake-item">And many more — just ask!</div>
         </div>
         <a class="btn-primary" href="#contact" style="margin-top:2rem; display:inline-block;">Check Your Lake</a>
       </div>
       <div class="area-map">
-        <div class="map-embed">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d725261.6!2d-93.9!3d44.97!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b333909377bbff%3A0x939fc9842f7aee07!2sMinneapolis%2C%20MN!5e0!3m2!1sen!2sus!4v1234567890"
-            allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
-        </div>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d725261.6!2d-93.9!3d44.97!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b333909377bbff%3A0x939fc9842f7aee07!2sMinneapolis%2C%20MN!5e0!3m2!1sen!2sus!4v1234567890"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
         <p class="area-note">Serving the greater Twin Cities metro. Contact us about your specific lake.</p>
       </div>
     </div>
@@ -501,38 +540,33 @@
 
 <hr class="divider" />
 
-<!-- CONTACT / BOOKING -->
+<!-- CONTACT -->
 <section id="contact">
   <div class="container">
     <div class="contact-inner">
       <div class="contact-info">
         <p class="section-label">Get in Touch</p>
         <h2 class="section-title">Ready to Ride?</h2>
-        <p class="section-body">Reach out to book a session, ask about your lake, or get more details about our services. We respond quickly and are happy to help plan your perfect day on the water.</p>
-
-        <div style="margin-top:2rem; display:flex; flex-direction:column; gap:1rem;">
-          <div>
-            <div style="font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:.3rem;">Charter Pricing</div>
-            <div style="color:rgba(255,255,255,.8);">$180/hr · 2-hr min ($350)</div>
+        <p class="section-body">Reach out to book a session, ask about your lake, or get more details. We respond quickly and love helping plan a great day on the water.</p>
+        <div class="price-row">
+          <div class="price-item">
+            <div class="pi-label">Private Charter &amp; Lessons</div>
+            <div class="pi-val">$180/hr · 2-hr min ($350)</div>
           </div>
-          <div>
-            <div style="font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:.3rem;">Mobile Captain Pricing</div>
-            <div style="color:rgba(255,255,255,.8);">$125/hr · 2-hr min</div>
+          <div class="price-item">
+            <div class="pi-label">Mobile Captain / Lessons</div>
+            <div class="pi-val">$125/hr · 2-hr min</div>
           </div>
         </div>
-
-        <div style="margin-top:2rem;">
-          <div style="font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:.75rem;">Follow Us</div>
-          <div class="social-links">
-            <a class="social-link" href="https://facebook.com/NorthWakeSurfCo" target="_blank" rel="noopener">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-              Facebook
-            </a>
-            <a class="social-link" href="https://instagram.com/NorthWakeSurfCo" target="_blank" rel="noopener">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              Instagram
-            </a>
-          </div>
+        <div class="social-links">
+          <a class="social-link" href="https://www.facebook.com/profile.php?id=61590738486228" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Facebook
+          </a>
+          <a class="social-link" href="https://instagram.com/NorthWakeSurfCo" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
+          </a>
         </div>
       </div>
 
@@ -571,11 +605,10 @@
         </div>
         <div class="form-group">
           <label>Message</label>
-          <textarea placeholder="Tell us your group size, preferred dates, skill level, or any questions…"></textarea>
+          <textarea placeholder="Group size, preferred dates, skill level, or any questions…"></textarea>
         </div>
         <button class="btn-submit">Send Booking Request</button>
       </div>
-
     </div>
   </div>
 </section>
@@ -585,6 +618,7 @@
   <div class="footer-inner">
     <div class="footer-logo"><span>North</span>WakeSurf<span>Co</span></div>
     <nav class="footer-links">
+      <a href="#feature">The Boat</a>
       <a href="#services">Services</a>
       <a href="#about">About</a>
       <a href="#area">Service Area</a>
@@ -593,6 +627,15 @@
     <p class="footer-copy">&copy; 2025 NorthWakeSurfCo · Minnesota Metro Area · All rights reserved</p>
   </div>
 </footer>
+
+<script>
+  // Trigger hero bg zoom-in after load
+  window.addEventListener('load', () => {
+    document.getElementById('heroBg').classList.add('loaded');
+  });
+  // Set hero background using JS so we don't need inline style with quotes
+  document.getElementById('heroBg').style.backgroundImage = "url('IMG_1503.png')";
+</script>
 
 </body>
 </html>
