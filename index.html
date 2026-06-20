@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NorthWakeSurfCo — Minnesota Wakesurf Lessons & Charters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ────────────────────────────────────── */
+    :root {
+      --teal:    #1a7a8a;
+      --teal-lt: #2aa4ba;
+      --teal-dim:#0e5566;
+      --black:   #0d0d0d;
+      --ink:     #1a1a1a;
+      --offwhite:#f5f8f9;
+      --white:   #ffffff;
+      --rule:    rgba(26,122,138,.25);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ───────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(13,13,13,.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.3rem; letter-spacing: .05em;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-logo span { color: var(--teal-lt); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,.75); text-decoration: none;
+      font-size: .85rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--teal-lt); }
+    .nav-cta {
+      background: var(--teal); color: var(--white);
+      padding: .5rem 1.25rem; border-radius: 4px;
+      font-size: .85rem; font-weight: 700; letter-spacing: .06em;
+      text-decoration: none; text-transform: uppercase;
+      transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--teal-lt); }
+
+    /* ── HERO ──────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center;
+      padding: 6rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse 80% 60% at 50% 60%, #0e3a44 0%, var(--black) 70%);
+    }
+    /* water shimmer lines */
+    .hero::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent, transparent 12px,
+        rgba(26,122,138,.08) 12px, rgba(26,122,138,.08) 13px
+      );
+      mask-image: linear-gradient(to top, rgba(0,0,0,.5) 0%, transparent 100%);
+    }
+    .hero-logo {
+      width: min(260px, 55vw);
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 0 40px rgba(42,164,186,.35));
+    }
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem; font-weight: 700; letter-spacing: .2em;
+      color: var(--teal-lt); text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: clamp(2.8rem, 8vw, 5.5rem);
+      line-height: .95; text-transform: uppercase;
+      letter-spacing: -.01em;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em {
+      font-style: normal; color: var(--teal-lt);
+      -webkit-text-stroke: 0px;
+    }
+    .hero-sub {
+      max-width: 500px; font-size: 1.1rem; color: rgba(255,255,255,.7);
+      margin-bottom: 2.5rem; line-height: 1.65;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--teal); color: var(--white);
+      padding: .85rem 2rem; border-radius: 5px;
+      font-weight: 700; font-size: .95rem; letter-spacing: .06em;
+      text-decoration: none; text-transform: uppercase;
+      transition: background .2s, transform .15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--teal-lt); transform: translateY(-1px); }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,.35); color: var(--white);
+      padding: .85rem 2rem; border-radius: 5px;
+      font-weight: 700; font-size: .95rem; letter-spacing: .06em;
+      text-decoration: none; text-transform: uppercase;
+      transition: border-color .2s, transform .15s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--teal-lt); transform: translateY(-1px); }
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      color: rgba(255,255,255,.3); font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
+    }
+    .hero-scroll svg { animation: bounce 1.8s ease-in-out infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+    /* ── SECTION SHARED ────────────────────────────── */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 1080px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .75rem; font-weight: 700; letter-spacing: .2em;
+      color: var(--teal-lt); text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: clamp(2rem, 5vw, 3rem);
+      text-transform: uppercase; line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .section-body { color: rgba(255,255,255,.7); max-width: 580px; line-height: 1.7; }
+    .divider { border: none; border-top: 1px solid var(--rule); margin: 0; }
+
+    /* ── SERVICES ──────────────────────────────────── */
+    #services { background: #0a1418; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5px;
+      margin-top: 3.5rem;
+      border: 1.5px solid var(--rule);
+    }
+    .service-card {
+      background: #0d1e24;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background .25s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--teal-lt));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .3s;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { background: #112028; }
+    .service-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+    .service-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.4rem; text-transform: uppercase;
+      letter-spacing: .03em; margin-bottom: .75rem;
+    }
+    .service-card p { color: rgba(255,255,255,.65); font-size: .95rem; line-height: 1.65; margin-bottom: 1.25rem; }
+    .service-card ul { list-style: none; margin-bottom: 1.5rem; }
+    .service-card ul li {
+      color: rgba(255,255,255,.6); font-size: .9rem;
+      padding: .3rem 0;
+      display: flex; align-items: flex-start; gap: .5rem;
+    }
+    .service-card ul li::before { content: '—'; color: var(--teal); flex-shrink: 0; }
+    .price-tag {
+      display: inline-block;
+      background: rgba(26,122,138,.15); border: 1px solid var(--teal-dim);
+      padding: .5rem 1rem; border-radius: 4px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.1rem; color: var(--teal-lt);
+      letter-spacing: .05em;
+    }
+
+    /* ── ABOUT ─────────────────────────────────────── */
+    #about {
+      background: var(--black);
+    }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .about-text .section-body { max-width: 100%; margin-top: 1rem; }
+    .about-text .section-body + .section-body { margin-top: .75rem; }
+    .about-stat-row {
+      display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap;
+    }
+    .about-stat { text-align: center; }
+    .about-stat .num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.5rem; font-weight: 900; color: var(--teal-lt);
+      line-height: 1;
+    }
+    .about-stat .label { font-size: .8rem; color: rgba(255,255,255,.5); letter-spacing: .08em; text-transform: uppercase; }
+    .about-visual {
+      position: relative; border-radius: 8px; overflow: hidden;
+      background: radial-gradient(circle at 40% 50%, #0e3a44 0%, #050d10 100%);
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-visual-logo {
+      width: 70%; opacity: .85;
+      filter: drop-shadow(0 0 60px rgba(42,164,186,.5));
+    }
+    .about-visual::after {
+      content: '';
+      position: absolute; inset: 0;
+      border: 1.5px solid var(--rule);
+      border-radius: 8px; pointer-events: none;
+    }
+
+    /* ── AREA ──────────────────────────────────────── */
+    #area { background: #070f12; }
+    .area-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .area-map {
+      background: #0a1e25;
+      border: 1.5px solid var(--rule); border-radius: 6px;
+      padding: 2rem; text-align: center;
+    }
+    .map-embed {
+      width: 100%; border-radius: 4px; overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .map-embed iframe {
+      width: 100%; height: 100%; border: none; border-radius: 4px;
+      filter: saturate(.7) brightness(.85);
+    }
+    .area-note {
+      margin-top: 1rem; font-size: .8rem; color: rgba(255,255,255,.4);
+      font-style: italic;
+    }
+
+    /* ── CONTACT / BOOKING ─────────────────────────── */
+    #contact { background: #0a1418; }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    }
+    .contact-info { }
+    .contact-info .section-body { margin-top: 1rem; margin-bottom: 2rem; }
+    .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .social-link {
+      display: flex; align-items: center; gap: .5rem;
+      background: rgba(26,122,138,.1); border: 1px solid var(--teal-dim);
+      padding: .6rem 1.1rem; border-radius: 4px;
+      color: var(--teal-lt); text-decoration: none; font-size: .9rem; font-weight: 600;
+      transition: background .2s;
+    }
+    .social-link:hover { background: rgba(26,122,138,.25); }
+    .booking-box {
+      background: #0d1e24; border: 1.5px solid var(--rule);
+      border-radius: 8px; padding: 2.5rem;
+    }
+    .booking-box h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.6rem; text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label {
+      display: block; font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: .4rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 4px; padding: .65rem .9rem;
+      color: var(--white); font-family: 'Barlow', sans-serif; font-size: .95rem;
+      outline: none; transition: border-color .2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--teal); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-group select option { background: #0d1e24; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit {
+      width: 100%; background: var(--teal); color: var(--white);
+      border: none; padding: .9rem; border-radius: 5px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 900; letter-spacing: .08em;
+      text-transform: uppercase; cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-submit:hover { background: var(--teal-lt); }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    footer {
+      background: var(--black); border-top: 1px solid var(--rule);
+      padding: 2.5rem 1.5rem; text-align: center;
+    }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.2rem; letter-spacing: .05em;
+    }
+    .footer-logo span { color: var(--teal-lt); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a {
+      color: rgba(255,255,255,.4); text-decoration: none; font-size: .8rem;
+      letter-spacing: .06em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--teal-lt); }
+    .footer-copy { color: rgba(255,255,255,.25); font-size: .8rem; }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 720px) {
+      nav { padding: .8rem 1rem; }
+      .nav-links { display: none; }
+      .about-inner, .area-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .about-visual { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>North</span>WakeSurf<span>Co</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#area">Service Area</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <img class="hero-logo" src="IMG_1622.PNG" alt="NorthWakeSurfCo Logo" />
+  <p class="hero-eyebrow">Minnesota Metro Area</p>
+  <h1>Life Starts<br>on the <em>Water</em></h1>
+  <p class="hero-sub">
+    Professional wakesurf lessons, private charters, and mobile captain services throughout the Twin Cities. All skill levels welcome.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#contact">Book a Session</a>
+    <a class="btn-outline" href="#services">View Services</a>
+  </div>
+  <div class="hero-scroll">
+    <svg width="14" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 14 18">
+      <path d="M7 1v12M2 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Scroll
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-body">Whether you're stepping on a board for the first time or chasing your next progression milestone — we have a session for you.</p>
+
+    <div class="services-grid">
+
+      <!-- Card 1 -->
+      <div class="service-card">
+        <div class="service-icon">🚤</div>
+        <h3>Private Charters &amp; Wakesurf Lessons</h3>
+        <p>Everything included — boat, fuel, gear, and expert coaching. We handle it all so you can focus on having fun.</p>
+        <ul>
+          <li>Professional coaching for all skill levels</li>
+          <li>Learn to get up, drop the rope, and progress</li>
+          <li>Great for beginners, families, and experienced riders</li>
+          <li>Boat, fuel, and equipment included</li>
+        </ul>
+        <div class="price-tag">$180 / hr &nbsp;·&nbsp; 2-hr minimum ($350)</div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="service-card">
+        <div class="service-icon">📍</div>
+        <h3>Mobile Captain &amp; Mobile Lessons</h3>
+        <p>We come to your boat. Perfect for owners who want coaching, captain services, or instruction on their own vessel.</p>
+        <ul>
+          <li>Boat operation instruction</li>
+          <li>Wakesurf coaching on your boat</li>
+          <li>Captain services for lake days &amp; events</li>
+          <li>We travel to you — no boat required on your end</li>
+        </ul>
+        <div class="price-tag">$125 / hr &nbsp;·&nbsp; 2-hr minimum</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">Built on the Water</h2>
+        <p class="section-body">NorthWakeSurfCo grew out of a lifelong love for boating and watersports. We grew up on the water and saw how much it brings people together — families, friends, and first-timers all finding something special out there.</p>
+        <p class="section-body" style="margin-top:.75rem">Our goal is simple: create a fun, safe, and memorable experience for everyone on board. Whether you're learning to get up for the first time or dialing in an advanced trick, we're here for every moment of it.</p>
+        <div class="about-stat-row">
+          <div class="about-stat">
+            <div class="num">All</div>
+            <div class="label">Skill Levels</div>
+          </div>
+          <div class="about-stat">
+            <div class="num">MN</div>
+            <div class="label">Metro Area</div>
+          </div>
+          <div class="about-stat">
+            <div class="num">100%</div>
+            <div class="label">On-Water Instruction</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <img class="about-visual-logo" src="IMG_1622.PNG" alt="NorthWakeSurfCo" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- SERVICE AREA -->
+<section id="area">
+  <div class="container">
+    <div class="area-inner">
+      <div>
+        <p class="section-label">Where We Ride</p>
+        <h2 class="section-title">Minnesota Metro &amp; Beyond</h2>
+        <p class="section-body">We're mobile and travel to most lakes throughout the Twin Cities area. Don't see your lake listed? Reach out — we'll do our best to make it work.</p>
+        <div style="margin-top:2rem; display:flex; flex-direction:column; gap:.75rem;">
+          <div style="display:flex;align-items:center;gap:.75rem; color:rgba(255,255,255,.7); font-size:.95rem;">
+            <span style="color:var(--teal-lt); font-size:1.1rem;">✓</span> Lake Minnetonka
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem; color:rgba(255,255,255,.7); font-size:.95rem;">
+            <span style="color:var(--teal-lt); font-size:1.1rem;">✓</span> White Bear Lake
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem; color:rgba(255,255,255,.7); font-size:.95rem;">
+            <span style="color:var(--teal-lt); font-size:1.1rem;">✓</span> Prior Lake
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem; color:rgba(255,255,255,.7); font-size:.95rem;">
+            <span style="color:var(--teal-lt); font-size:1.1rem;">✓</span> Lake Waconia &amp; surrounding lakes
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem; color:rgba(255,255,255,.7); font-size:.95rem;">
+            <span style="color:var(--teal-lt); font-size:1.1rem;">✓</span> + many more — just ask!
+          </div>
+        </div>
+        <a class="btn-primary" href="#contact" style="margin-top:2rem; display:inline-block;">Check Your Lake</a>
+      </div>
+      <div class="area-map">
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d725261.6!2d-93.9!3d44.97!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b333909377bbff%3A0x939fc9842f7aee07!2sMinneapolis%2C%20MN!5e0!3m2!1sen!2sus!4v1234567890"
+            allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p class="area-note">Serving the greater Twin Cities metro. Contact us about your specific lake.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- CONTACT / BOOKING -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <p class="section-label">Get in Touch</p>
+        <h2 class="section-title">Ready to Ride?</h2>
+        <p class="section-body">Reach out to book a session, ask about your lake, or get more details about our services. We respond quickly and are happy to help plan your perfect day on the water.</p>
+
+        <div style="margin-top:2rem; display:flex; flex-direction:column; gap:1rem;">
+          <div>
+            <div style="font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:.3rem;">Charter Pricing</div>
+            <div style="color:rgba(255,255,255,.8);">$180/hr · 2-hr min ($350)</div>
+          </div>
+          <div>
+            <div style="font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:.3rem;">Mobile Captain Pricing</div>
+            <div style="color:rgba(255,255,255,.8);">$125/hr · 2-hr min</div>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;">
+          <div style="font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:.75rem;">Follow Us</div>
+          <div class="social-links">
+            <a class="social-link" href="https://facebook.com/NorthWakeSurfCo" target="_blank" rel="noopener">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              Facebook
+            </a>
+            <a class="social-link" href="https://instagram.com/NorthWakeSurfCo" target="_blank" rel="noopener">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-box">
+        <h3>Book a Session</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Alex" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Johnson" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="you@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="(612) 555-0000" />
+        </div>
+        <div class="form-group">
+          <label>Service</label>
+          <select>
+            <option value="">Select a service…</option>
+            <option>Private Charter &amp; Wakesurf Lessons</option>
+            <option>Mobile Captain / Mobile Lessons</option>
+            <option>Not sure — help me pick</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Your Lake / Location</label>
+          <input type="text" placeholder="e.g. Lake Minnetonka, Prior Lake…" />
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us your group size, preferred dates, skill level, or any questions…"></textarea>
+        </div>
+        <button class="btn-submit">Send Booking Request</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><span>North</span>WakeSurf<span>Co</span></div>
+    <nav class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#area">Service Area</a>
+      <a href="#contact">Book Now</a>
+    </nav>
+    <p class="footer-copy">&copy; 2025 NorthWakeSurfCo · Minnesota Metro Area · All rights reserved</p>
+  </div>
+</footer>
+
+</body>
+</html>
