@@ -16,323 +16,140 @@
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; }
 
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Barlow', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1rem 2rem;
-      background: rgba(13,13,13,.9);
+      background: rgba(13,13,13,.88);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--rule);
     }
-    .nav-logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-size: 1.3rem; letter-spacing: .05em;
-      color: var(--white); text-decoration: none;
-    }
+    .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.3rem; letter-spacing: .05em; color: var(--white); text-decoration: none; }
     .nav-logo span { color: var(--teal-lt); }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      color: rgba(255,255,255,.75); text-decoration: none;
-      font-size: .85rem; font-weight: 600; letter-spacing: .08em;
-      text-transform: uppercase; transition: color .2s;
-    }
+    .nav-links a { color: rgba(255,255,255,.75); text-decoration: none; font-size: .85rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; transition: color .2s; }
     .nav-links a:hover { color: var(--teal-lt); }
-    .nav-cta {
-      background: var(--teal); color: var(--white);
-      padding: .5rem 1.25rem; border-radius: 4px;
-      font-size: .85rem; font-weight: 700; letter-spacing: .06em;
-      text-decoration: none; text-transform: uppercase;
-      transition: background .2s;
-    }
+    .nav-cta { background: var(--teal); color: var(--white); padding: .5rem 1.25rem; border-radius: 4px; font-size: .85rem; font-weight: 700; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; transition: background .2s; }
     .nav-cta:hover { background: var(--teal-lt); }
 
-    /* ── HERO ── */
+    /* HERO — Malibu boat photo as background */
     .hero {
       min-height: 100vh;
       position: relative; overflow: hidden;
-      display: flex; flex-direction: column;
-      justify-content: flex-end;
+      display: flex; flex-direction: column; justify-content: flex-end;
     }
     .hero-bg {
       position: absolute; inset: 0;
-      background-image: url('IMG_1503.png');
-      background-size: cover; background-position: center 30%;
-      transform: scale(1.04);
-      transition: transform 8s ease-out;
+      background-image: url('IMG_1497.png');
+      background-size: cover; background-position: center 55%;
     }
-    .hero-bg.loaded { transform: scale(1); }
     .hero-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(13,13,13,.35) 0%,
-        rgba(13,13,13,.1) 40%,
-        rgba(13,13,13,.75) 75%,
-        rgba(13,13,13,.98) 100%
+        rgba(13,13,13,.2) 0%,
+        rgba(13,13,13,.05) 35%,
+        rgba(13,13,13,.7) 70%,
+        rgba(13,13,13,.97) 100%
       );
     }
     .hero-content {
       position: relative; z-index: 2;
       padding: 4rem 3rem 5rem;
-      max-width: 750px;
+      max-width: 700px;
     }
-    .hero-eyebrow {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .8rem; font-weight: 700; letter-spacing: .22em;
-      color: var(--teal-lt); text-transform: uppercase;
-      margin-bottom: .75rem;
-    }
-    .hero h1 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-size: clamp(3rem, 8vw, 6rem);
-      line-height: .92; text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
+    .hero-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700; letter-spacing: .22em; color: var(--teal-lt); text-transform: uppercase; margin-bottom: .75rem; }
+    .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(3rem, 8vw, 6rem); line-height: .92; text-transform: uppercase; margin-bottom: 1.25rem; }
     .hero h1 em { font-style: normal; color: var(--teal-lt); }
-    .hero-sub {
-      font-size: 1.1rem; color: rgba(255,255,255,.75);
-      max-width: 480px; margin-bottom: 2.5rem; line-height: 1.65;
-    }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,.78); max-width: 460px; margin-bottom: 2.5rem; line-height: 1.65; }
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--teal); color: var(--white);
-      padding: .85rem 2rem; border-radius: 5px;
-      font-weight: 700; font-size: .95rem; letter-spacing: .06em;
-      text-decoration: none; text-transform: uppercase;
-      transition: background .2s, transform .15s; display: inline-block;
-    }
+    .btn-primary { background: var(--teal); color: var(--white); padding: .85rem 2rem; border-radius: 5px; font-weight: 700; font-size: .95rem; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; transition: background .2s, transform .15s; display: inline-block; }
     .btn-primary:hover { background: var(--teal-lt); transform: translateY(-1px); }
-    .btn-outline {
-      border: 2px solid rgba(255,255,255,.4); color: var(--white);
-      padding: .85rem 2rem; border-radius: 5px;
-      font-weight: 700; font-size: .95rem; letter-spacing: .06em;
-      text-decoration: none; text-transform: uppercase;
-      transition: border-color .2s, transform .15s; display: inline-block;
-    }
+    .btn-outline { border: 2px solid rgba(255,255,255,.4); color: var(--white); padding: .85rem 2rem; border-radius: 5px; font-weight: 700; font-size: .95rem; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; transition: border-color .2s, transform .15s; display: inline-block; }
     .btn-outline:hover { border-color: var(--teal-lt); transform: translateY(-1px); }
+    .hero-logo-badge { position: absolute; top: 5.5rem; right: 2.5rem; z-index: 3; width: clamp(100px, 12vw, 155px); filter: drop-shadow(0 0 28px rgba(42,164,186,.45)); }
 
-    /* logo badge in hero corner */
-    .hero-logo-badge {
-      position: absolute; top: 5.5rem; right: 2.5rem; z-index: 3;
-      width: clamp(100px, 12vw, 160px);
-      filter: drop-shadow(0 0 30px rgba(42,164,186,.4));
-    }
-
-    /* ── SHARED ── */
+    /* SHARED */
     section { padding: 5rem 1.5rem; }
     .container { max-width: 1080px; margin: 0 auto; }
-    .section-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .75rem; font-weight: 700; letter-spacing: .2em;
-      color: var(--teal-lt); text-transform: uppercase; margin-bottom: .6rem;
-    }
-    .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-size: clamp(2rem, 5vw, 3rem);
-      text-transform: uppercase; line-height: 1; margin-bottom: 1rem;
-    }
+    .section-label { font-family: 'Barlow Condensed', sans-serif; font-size: .75rem; font-weight: 700; letter-spacing: .2em; color: var(--teal-lt); text-transform: uppercase; margin-bottom: .6rem; }
+    .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2rem, 5vw, 3rem); text-transform: uppercase; line-height: 1; margin-bottom: 1rem; }
     .section-body { color: rgba(255,255,255,.7); line-height: 1.7; }
     hr.divider { border: none; border-top: 1px solid var(--rule); }
 
-    /* ── FEATURE SPLIT (boat + owner) ── */
-    #feature { background: #080f12; }
-    .feature-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
-      margin-bottom: 2px;
-    }
-    .feature-grid-bottom {
-      display: grid; grid-template-columns: 2fr 1fr; gap: 2px;
-    }
-    .feat-img {
-      overflow: hidden; position: relative;
-      background: #0a1418;
-    }
-    .feat-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block; transition: transform .5s ease;
-    }
-    .feat-img:hover img { transform: scale(1.04); }
-    .feat-img.tall { aspect-ratio: 3/4; }
-    .feat-img.wide { aspect-ratio: 16/9; }
-    .feat-img.square { aspect-ratio: 1/1; }
-    .feat-caption {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1rem 1.25rem;
-      background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%);
-      font-size: .8rem; font-weight: 600; letter-spacing: .08em;
-      text-transform: uppercase; color: rgba(255,255,255,.7);
-    }
-
-    /* ── SERVICES ── */
+    /* SERVICES */
     #services { background: #0a1418; }
-    .services-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5px; margin-top: 3rem;
-      border: 1.5px solid var(--rule);
-    }
-    .service-card {
-      background: #0d1e24; padding: 2.5rem; position: relative; overflow: hidden;
-      transition: background .25s;
-    }
-    .service-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--teal), var(--teal-lt));
-      transform: scaleX(0); transform-origin: left; transition: transform .3s;
-    }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5px; margin-top: 3rem; border: 1.5px solid var(--rule); }
+    .service-card { background: #0d1e24; padding: 2.5rem; position: relative; overflow: hidden; transition: background .25s; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--teal-lt)); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
     .service-card:hover::before { transform: scaleX(1); }
     .service-card:hover { background: #112028; }
     .service-icon { font-size: 2.2rem; margin-bottom: 1rem; }
-    .service-card h3 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-size: 1.4rem; text-transform: uppercase;
-      letter-spacing: .03em; margin-bottom: .75rem;
-    }
+    .service-card h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.4rem; text-transform: uppercase; letter-spacing: .03em; margin-bottom: .75rem; }
     .service-card p { color: rgba(255,255,255,.65); font-size: .95rem; line-height: 1.65; margin-bottom: 1.25rem; }
     .service-card ul { list-style: none; margin-bottom: 1.5rem; }
-    .service-card ul li {
-      color: rgba(255,255,255,.6); font-size: .9rem; padding: .3rem 0;
-      display: flex; align-items: flex-start; gap: .5rem;
-    }
+    .service-card ul li { color: rgba(255,255,255,.6); font-size: .9rem; padding: .3rem 0; display: flex; align-items: flex-start; gap: .5rem; }
     .service-card ul li::before { content: '—'; color: var(--teal); flex-shrink: 0; }
-    .price-tag {
-      display: inline-block;
-      background: rgba(26,122,138,.15); border: 1px solid var(--teal-dim);
-      padding: .5rem 1rem; border-radius: 4px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700; font-size: 1.1rem; color: var(--teal-lt); letter-spacing: .05em;
-    }
+    .price-tag { display: inline-block; background: rgba(26,122,138,.15); border: 1px solid var(--teal-dim); padding: .5rem 1rem; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--teal-lt); letter-spacing: .05em; }
 
-    /* ── GALLERY ── */
+    /* GALLERY — 5 photos, used exactly once, full-bleed strip */
     #gallery { background: var(--black); padding: 0; }
-    .gallery-strip {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 2px;
-    }
-    .gallery-strip .g-img {
-      overflow: hidden; aspect-ratio: 3/4; background: #0a1418;
-    }
-    .gallery-strip .g-img img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform .5s ease, filter .4s ease;
-      filter: saturate(.85);
-    }
-    .gallery-strip .g-img:hover img { transform: scale(1.06); filter: saturate(1.1); }
+    .gallery-strip { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 3px; }
+    .g-img { overflow: hidden; position: relative; }
+    .g-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease, filter .4s ease; filter: saturate(.82); }
+    .g-img:hover img { transform: scale(1.05); filter: saturate(1.15); }
+    .g-img.hero-g { aspect-ratio: 4/5; }
+    .g-img.tall-g { aspect-ratio: 3/5; }
 
-    /* ── ABOUT ── */
+    /* ABOUT */
     #about { background: #070f12; }
-    .about-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-    }
-    .about-photo {
-      border-radius: 6px; overflow: hidden; position: relative;
-      aspect-ratio: 4/5;
-    }
-    .about-photo img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-    }
-    .about-photo::after {
-      content: ''; position: absolute; inset: 0;
-      border: 1.5px solid var(--rule); border-radius: 6px; pointer-events: none;
-    }
+    .about-inner { display: grid; grid-template-columns: 5fr 4fr; gap: 4rem; align-items: center; }
+    .about-photo { border-radius: 6px; overflow: hidden; position: relative; aspect-ratio: 3/4; }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .about-photo::after { content: ''; position: absolute; inset: 0; border: 1.5px solid var(--rule); border-radius: 6px; pointer-events: none; }
     .about-text .section-body { max-width: 100%; margin-top: .75rem; }
     .about-stat-row { display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap; }
-    .about-stat { text-align: center; }
-    .about-stat .num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2.5rem; font-weight: 900; color: var(--teal-lt); line-height: 1;
-    }
+    .about-stat .num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; font-weight: 900; color: var(--teal-lt); line-height: 1; }
     .about-stat .lbl { font-size: .8rem; color: rgba(255,255,255,.5); letter-spacing: .08em; text-transform: uppercase; }
 
-    /* ── AREA ── */
+    /* AREA */
     #area { background: var(--black); }
     .area-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
     .lake-list { margin-top: 2rem; display: flex; flex-direction: column; gap: .6rem; }
-    .lake-item {
-      display: flex; align-items: center; gap: .75rem;
-      color: rgba(255,255,255,.7); font-size: .95rem;
-    }
-    .lake-item::before { content: '✓'; color: var(--teal-lt); font-size: 1rem; flex-shrink: 0; }
-    .area-map {
-      background: #0a1e25; border: 1.5px solid var(--rule);
-      border-radius: 6px; overflow: hidden;
-    }
+    .lake-item { display: flex; align-items: center; gap: .75rem; color: rgba(255,255,255,.7); font-size: .95rem; }
+    .lake-item::before { content: '✓'; color: var(--teal-lt); flex-shrink: 0; }
+    .area-map { background: #0a1e25; border: 1.5px solid var(--rule); border-radius: 6px; overflow: hidden; }
     .area-map iframe { width: 100%; height: 320px; border: none; filter: saturate(.7) brightness(.85); display: block; }
     .area-note { padding: .75rem 1rem; font-size: .8rem; color: rgba(255,255,255,.4); font-style: italic; }
 
-    /* ── CONTACT ── */
+    /* CONTACT */
     #contact { background: #0a1418; }
     .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-    .contact-info .section-body { margin-top: 1rem; margin-bottom: 2rem; }
+    .contact-info .section-body { margin-top: 1rem; margin-bottom: 1.5rem; }
     .price-row { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
-    .price-item { }
-    .price-item .pi-label { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .2rem; }
-    .price-item .pi-val { color: rgba(255,255,255,.85); font-size: .95rem; }
+    .pi-label { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .2rem; }
+    .pi-val { color: rgba(255,255,255,.85); font-size: .95rem; }
     .social-links { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
-    .social-link {
-      display: flex; align-items: center; gap: .5rem;
-      background: rgba(26,122,138,.1); border: 1px solid var(--teal-dim);
-      padding: .6rem 1.1rem; border-radius: 4px;
-      color: var(--teal-lt); text-decoration: none; font-size: .9rem; font-weight: 600;
-      transition: background .2s;
-    }
+    .social-link { display: flex; align-items: center; gap: .5rem; background: rgba(26,122,138,.1); border: 1px solid var(--teal-dim); padding: .6rem 1.1rem; border-radius: 4px; color: var(--teal-lt); text-decoration: none; font-size: .9rem; font-weight: 600; transition: background .2s; }
     .social-link:hover { background: rgba(26,122,138,.25); }
-    .booking-box {
-      background: #0d1e24; border: 1.5px solid var(--rule);
-      border-radius: 8px; padding: 2.5rem;
-    }
-    .booking-box h3 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-size: 1.6rem; text-transform: uppercase; margin-bottom: 1.25rem;
-    }
+    .booking-box { background: #0d1e24; border: 1.5px solid var(--rule); border-radius: 8px; padding: 2.5rem; }
+    .booking-box h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.6rem; text-transform: uppercase; margin-bottom: 1.25rem; }
     .form-group { margin-bottom: 1.1rem; }
-    .form-group label {
-      display: block; font-size: .8rem; font-weight: 600; letter-spacing: .08em;
-      text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: .4rem;
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%; background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.15); border-radius: 4px;
-      padding: .65rem .9rem; color: var(--white);
-      font-family: 'Barlow', sans-serif; font-size: .95rem;
-      outline: none; transition: border-color .2s;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus { border-color: var(--teal); }
+    .form-group label { display: block; font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: .4rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.15); border-radius: 4px; padding: .65rem .9rem; color: var(--white); font-family: 'Barlow', sans-serif; font-size: .95rem; outline: none; transition: border-color .2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--teal); }
     .form-group textarea { resize: vertical; min-height: 90px; }
     .form-group select option { background: #0d1e24; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .btn-submit {
-      width: 100%; background: var(--teal); color: var(--white);
-      border: none; padding: .9rem; border-radius: 5px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.1rem; font-weight: 900; letter-spacing: .08em;
-      text-transform: uppercase; cursor: pointer; transition: background .2s;
-    }
+    .btn-submit { width: 100%; background: var(--teal); color: var(--white); border: none; padding: .9rem; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background .2s; }
     .btn-submit:hover { background: var(--teal-lt); }
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--black); border-top: 1px solid var(--rule);
-      padding: 2.5rem 1.5rem; text-align: center;
-    }
-    .footer-inner {
-      max-width: 1080px; margin: 0 auto;
-      display: flex; flex-direction: column; align-items: center; gap: 1rem;
-    }
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid var(--rule); padding: 2.5rem 1.5rem; text-align: center; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
     .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.2rem; letter-spacing: .05em; }
     .footer-logo span { color: var(--teal-lt); }
     .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
@@ -340,17 +157,18 @@
     .footer-links a:hover { color: var(--teal-lt); }
     .footer-copy { color: rgba(255,255,255,.25); font-size: .8rem; }
 
-    /* ── RESPONSIVE ── */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
       nav { padding: .8rem 1rem; }
       .nav-links { display: none; }
       .hero-content { padding: 4rem 1.5rem 3rem; }
       .hero-logo-badge { display: none; }
-      .feature-grid, .feature-grid-bottom { grid-template-columns: 1fr; }
-      .gallery-strip { grid-template-columns: repeat(3, 1fr); }
-      .gallery-strip .g-img:nth-child(n+4) { display: none; }
-      .about-inner, .area-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .about-photo { aspect-ratio: 16/9; }
+      .gallery-strip { grid-template-columns: 1fr 1fr; }
+      .g-img.hero-g { grid-column: span 2; aspect-ratio: 16/9; }
+      .g-img.tall-g { aspect-ratio: 4/5; }
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-photo { aspect-ratio: 4/3; }
+      .area-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .form-row { grid-template-columns: 1fr; }
     }
   </style>
@@ -361,7 +179,6 @@
 <nav>
   <a class="nav-logo" href="#"><span>North</span>WakeSurf<span>Co</span></a>
   <ul class="nav-links">
-    <li><a href="#feature">The Boat</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#area">Service Area</a></li>
@@ -370,9 +187,9 @@
   <a class="nav-cta" href="#contact">Book Now</a>
 </nav>
 
-<!-- HERO — action selfie on the water -->
+<!-- HERO — Malibu boat (IMG_1497) as background -->
 <section class="hero" id="home">
-  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <img class="hero-logo-badge" src="IMG_1622.PNG" alt="NorthWakeSurfCo" />
   <div class="hero-content">
@@ -388,56 +205,17 @@
 
 <hr class="divider" />
 
-<!-- FEATURE — boat + owner highlight -->
-<section id="feature" style="padding:0; background:#080f12;">
-  <div style="padding:3rem 1.5rem 1.5rem 1.5rem; max-width:1080px; margin:0 auto;">
-    <p class="section-label">The Boat &amp; Crew</p>
-    <h2 class="section-title">Built for the Wave</h2>
-  </div>
-  <div style="max-width:1080px; margin:0 auto 3rem; padding:0 1.5rem;">
-    <div class="feature-grid">
-      <!-- Malibu boat — hero shot -->
-      <div class="feat-img tall">
-        <img src="IMG_1497.png" alt="Malibu wakesurf boat on calm water at sunset" loading="lazy" />
-        <div class="feat-caption">2024 Malibu Wakesetter — Your Ride</div>
-      </div>
-      <!-- Owner selfie on the wake -->
-      <div class="feat-img tall">
-        <img src="IMG_1503.png" alt="Owner riding the wake behind the boat" loading="lazy" />
-        <div class="feat-caption">Your Coach, On the Water</div>
-      </div>
-    </div>
-  </div>
-  <div style="max-width:1080px; margin:0 auto 4rem; padding:0 1.5rem;">
-    <div class="feature-grid-bottom">
-      <!-- Boat interior / stern view with rider -->
-      <div class="feat-img wide">
-        <img src="IMG_1573.png" alt="View from the boat watching a rider surf the wake" loading="lazy" />
-        <div class="feat-caption">Watching Your Progress from the Boat</div>
-      </div>
-      <!-- Sunset on the lake -->
-      <div class="feat-img square">
-        <img src="IMG_1415.png" alt="Sunset on a Minnesota lake from the boat" loading="lazy" />
-        <div class="feat-caption">Minnesota Sunsets, Included</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
 <!-- SERVICES -->
 <section id="services">
   <div class="container">
     <p class="section-label">What We Offer</p>
     <h2 class="section-title">Our Services</h2>
     <p class="section-body">Whether you're stepping on a board for the first time or chasing your next milestone — we have a session for you.</p>
-
     <div class="services-grid">
       <div class="service-card">
         <div class="service-icon">🚤</div>
         <h3>Private Charters &amp; Wakesurf Lessons</h3>
-        <p>Everything included — boat, fuel, gear, and expert coaching. We handle it all so you focus on the ride.</p>
+        <p>Everything included — boat, fuel, gear, and expert coaching. We handle it all so you can focus on the ride.</p>
         <ul>
           <li>Professional coaching for all skill levels</li>
           <li>Learn to get up, drop the rope, and progress your riding</li>
@@ -462,31 +240,42 @@
   </div>
 </section>
 
-<!-- GALLERY STRIP -->
+<hr class="divider" />
+
+<!-- GALLERY STRIP — 5 action/vibe photos, each used once -->
+<!-- IMG_1503: owner selfie | IMG_1573: stern view rider | IMG_1415: sunset | IMG_1541: kid surfing | IMG_1233: helm view | IMG_1334_2: guests on boat -->
 <div id="gallery">
   <div class="gallery-strip">
-    <div class="g-img"><img src="IMG_1541.JPG" alt="Kid wakesurfing on the wave" loading="lazy" /></div>
-    <div class="g-img"><img src="IMG_1573.png" alt="Rider surfing the wake behind the Malibu" loading="lazy" /></div>
-    <div class="g-img"><img src="IMG_1415.png" alt="Minnesota lake sunset from the boat" loading="lazy" /></div>
-    <div class="g-img"><img src="IMG_1233.png" alt="Captain's view from the helm" loading="lazy" /></div>
-    <div class="g-img"><img src="IMG_1334_2.png" alt="Guests relaxing on the boat while rider surfs" loading="lazy" /></div>
+    <!-- Wide feature: kid riding wave — best action shot -->
+    <div class="g-img hero-g">
+      <img src="IMG_1541.JPG" alt="Young rider surfing the wake" loading="lazy" />
+    </div>
+    <!-- 4 tall supporting shots -->
+    <div class="g-img tall-g">
+      <img src="IMG_1573.png" alt="Rider surfing behind the Malibu" loading="lazy" />
+    </div>
+    <div class="g-img tall-g">
+      <img src="IMG_1415.png" alt="Minnesota lake sunset from the boat" loading="lazy" />
+    </div>
+    <div class="g-img tall-g">
+      <img src="IMG_1233.png" alt="Captain's view from the helm" loading="lazy" />
+    </div>
+    <div class="g-img tall-g">
+      <img src="IMG_1334_2.png" alt="Guests relaxing on the boat" loading="lazy" />
+    </div>
   </div>
 </div>
 
 <hr class="divider" />
 
-<!-- ABOUT -->
+<!-- ABOUT — owner selfie (IMG_1503) as the photo -->
 <section id="about">
   <div class="container">
     <div class="about-inner">
-      <!-- photo: guests on boat watching rider — good "social proof" image -->
-      <div class="about-photo">
-        <img src="IMG_1334_2.png" alt="Guests on the boat enjoying a session" loading="lazy" />
-      </div>
       <div class="about-text">
         <p class="section-label">Our Story</p>
         <h2 class="section-title">Built on the Water</h2>
-        <p class="section-body">NorthWakeSurfCo grew out of a lifelong love for boating and watersports. We grew up on the water and saw how much it brings people together — families, friends, and first-timers all finding something special out there.</p>
+        <p class="section-body">NorthWakeSurfCo grew out of a lifelong love for boating and watersports. We grew up on the water and learned firsthand how much it brings people together — families, friends, and first-timers all finding something special out there.</p>
         <p class="section-body" style="margin-top:.75rem;">Our goal is simple: create a fun, safe, and memorable experience for everyone on board. Whether you're getting up for the first time or dialing in an advanced trick, we're here for every moment of it.</p>
         <div class="about-stat-row">
           <div class="about-stat">
@@ -502,6 +291,11 @@
             <div class="lbl">On-Water</div>
           </div>
         </div>
+        <a class="btn-primary" href="#contact" style="margin-top:2rem; display:inline-block;">Ride With Us</a>
+      </div>
+      <!-- Owner selfie on the wave -->
+      <div class="about-photo">
+        <img src="IMG_1503.png" alt="Your coach wakesurfing behind the boat" loading="lazy" />
       </div>
     </div>
   </div>
@@ -529,8 +323,7 @@
       <div class="area-map">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d725261.6!2d-93.9!3d44.97!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b333909377bbff%3A0x939fc9842f7aee07!2sMinneapolis%2C%20MN!5e0!3m2!1sen!2sus!4v1234567890"
-          allowfullscreen="" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
         </iframe>
         <p class="area-note">Serving the greater Twin Cities metro. Contact us about your specific lake.</p>
       </div>
@@ -540,7 +333,7 @@
 
 <hr class="divider" />
 
-<!-- CONTACT -->
+<!-- CONTACT / BOOKING -->
 <section id="contact">
   <div class="container">
     <div class="contact-inner">
@@ -549,13 +342,13 @@
         <h2 class="section-title">Ready to Ride?</h2>
         <p class="section-body">Reach out to book a session, ask about your lake, or get more details. We respond quickly and love helping plan a great day on the water.</p>
         <div class="price-row">
-          <div class="price-item">
+          <div>
             <div class="pi-label">Private Charter &amp; Lessons</div>
-            <div class="pi-val">$180/hr · 2-hr min ($350)</div>
+            <div class="pi-val">$180 / hr · 2-hr minimum ($350)</div>
           </div>
-          <div class="price-item">
+          <div>
             <div class="pi-label">Mobile Captain / Lessons</div>
-            <div class="pi-val">$125/hr · 2-hr min</div>
+            <div class="pi-val">$125 / hr · 2-hr minimum</div>
           </div>
         </div>
         <div class="social-links">
@@ -618,7 +411,6 @@
   <div class="footer-inner">
     <div class="footer-logo"><span>North</span>WakeSurf<span>Co</span></div>
     <nav class="footer-links">
-      <a href="#feature">The Boat</a>
       <a href="#services">Services</a>
       <a href="#about">About</a>
       <a href="#area">Service Area</a>
@@ -627,15 +419,6 @@
     <p class="footer-copy">&copy; 2025 NorthWakeSurfCo · Minnesota Metro Area · All rights reserved</p>
   </div>
 </footer>
-
-<script>
-  // Trigger hero bg zoom-in after load
-  window.addEventListener('load', () => {
-    document.getElementById('heroBg').classList.add('loaded');
-  });
-  // Set hero background using JS so we don't need inline style with quotes
-  document.getElementById('heroBg').style.backgroundImage = "url('IMG_1503.png')";
-</script>
 
 </body>
 </html>
